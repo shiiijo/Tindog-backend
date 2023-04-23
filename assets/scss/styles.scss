@@ -4,6 +4,7 @@ body{
 #one{
   background-color:#ff4c68;
   color:#fff;
+  text-align: center;
 }
 h1{
   font-family: 'Montserrat-black', sans-serif;
@@ -14,11 +15,12 @@ h1{
 }
 .container-fluid{
   padding: 3% 15%;
-  padding-bottom: 0
+  padding-bottom: 0;
+  
 }
 .img{
   transform: rotate(20deg);
-  width:60%;
+  width:50%;
   margin-left:30%;
 }
 @media (max-width:1028px){

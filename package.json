@@ -1,0 +1,26 @@
+{
+  "name": "tindog",
+  "version": "1.0.0",
+  "description": "Tinder like website for Dogs :)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiiijo/Tindog.git"
+  },
+  "author": "shrinidhijoshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shiiijo/Tindog/issues"
+  },
+  "homepage": "https://github.com/shiiijo/Tindog#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "node-sass-middleware": "^1.0.1",
+    "sass": "^1.62.0"
+  }
+}
