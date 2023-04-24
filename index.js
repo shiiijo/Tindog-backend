@@ -4,8 +4,14 @@ const port = 8000;
 
 const saasMiddleware = require('node-sass-middleware');
 const expressLayout = require('express-ejs-layouts');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 
+
+
+// databse connection firing up
+const db = require("./config/mongoose");
 
 // it is to facilitate css loading with sass middle ware once server starts
 app.use(saasMiddleware({
@@ -31,6 +37,25 @@ app.set('views','./views');
 
 // looks for assets
 app.use(express.static('./assets'));
+
+app.use(session({
+    name:'socio',
+    secret:'blah',
+    saveUninitialized:false,
+    resave:false,
+    cookie:{
+        maxAge:(1000*60*100)
+    },
+    // mongo store is used to session cookie in DB
+    store: new MongoDBStore({
+            mongooseConnection : db,
+            autoRemove :'disabled'
+    },
+    function(err){
+        console.log(err || 'connect-mongodb setup ok');
+    })
+}));
+
 
 // setup routes
 app.use("/",require("./routes/index.js"));
