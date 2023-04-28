@@ -5,8 +5,11 @@ const port = 8000;
 const saasMiddleware = require('node-sass-middleware');
 const expressLayout = require('express-ejs-layouts');
 const session = require('express-session');
+const cookieParser = require("cookie-parser");
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-stratergy');
 const MongoDBStore = require('connect-mongodb-session')(session);
-
+const {SESSION_SECRET,SESSION_NAME} = require('./config/environment')
 
 
 
@@ -31,20 +34,25 @@ app.set('layout extractScripts',true);
 // setup layout , it should be before routes and views
 app.use(expressLayout)
 
-//  set up view engine
-app.set("view engine","ejs");
-app.set('views','./views');
+// it is to allow to get form data in req object
+app.use(express.urlencoded());
+// to parse the cookies
+app.use(cookieParser());
 
 // looks for assets
 app.use(express.static('./assets'));
 
+//  set up view engine
+app.set("view engine","ejs");
+app.set('views','./views');
+
 app.use(session({
-    name:'socio',
-    secret:'blah',
+    name:SESSION_NAME,
+    secret:SESSION_SECRET,
     saveUninitialized:false,
     resave:false,
     cookie:{
-        maxAge:(1000*60*100)
+        maxAge:(1000000)
     },
     // mongo store is used to session cookie in DB
     store: new MongoDBStore({
@@ -56,6 +64,13 @@ app.use(session({
     })
 }));
 
+// initailze passport and passport session
+app.use(passport.initialize());
+app.use(passport.session());
+
+//  this function is defined by me , for any request comming in this function stores user 
+// - info available in locales , locales can be accessed anywhere for views when he is signed in 
+app.use(passport.setAuthenticatedUser);
 
 // setup routes
 app.use("/",require("./routes/index.js"));

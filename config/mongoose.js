@@ -1,6 +1,8 @@
 //include library 
 // mongoose is ODM it creates layer between databse and the developer for the ease of writng code
 const mongoose = require("mongoose");
+const {DATABASE_NAME} = require('./environment')
+
 
 // make connection with your database name
 mongoose.connect("mongodb://localhost/tindog_development");
