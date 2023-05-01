@@ -8,6 +8,7 @@ const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-stratergy');
+const passportGoogle = require('./config/passport-google-oauth2-stratergy');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const {SESSION_SECRET,SESSION_NAME} = require('./config/environment')
 
