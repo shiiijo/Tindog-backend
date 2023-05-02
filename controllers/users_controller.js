@@ -60,4 +60,31 @@ module,exports.destroySession = function(req,res){
 
 }
 
+module.exports.profile = function(req,res){
+    res.render('profile.ejs')
+}
+
+module.exports.updateProfile = function(req,res){
+    User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+        if(err){
+            console.log("Failed to update user ...")
+            return res.redirect("back")
+        }   
+            console.log(user)
+            console.log(req.body);
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.password = req.body.password
+            if(req.body.password == req.body.confirm_password){
+                user.save();
+                console.log("User details updated successfully ...");
+                return res.redirect('/');
+            }
+            else{
+                console.log("Both passwords are not matching, please enter same password ...")
+                return res.redirect('back');
+            }
+        })
+}
+
 
