@@ -43,6 +43,9 @@ app.use(cookieParser());
 // looks for assets
 app.use(express.static('./assets'));
 
+// make uploads apth available to the browser
+app.use('/uploads',express.static(__dirname+'/uploads'))
+
 //  set up view engine
 app.set("view engine","ejs");
 app.set('views','./views');

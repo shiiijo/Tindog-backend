@@ -60,4 +60,53 @@ module,exports.destroySession = function(req,res){
 
 }
 
+module.exports.profile = function(req,res){
+    res.render('profile.ejs')
+}
+
+module.exports.updateProfile = function(req,res){
+    User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+        if(err){
+            console.log("Failed to update user ...")
+            return res.redirect("back")
+        }
+
+        User.uploadedAvatar(req,res,function(err){
+        if(err){
+            console.log("*****Multer Error",err)
+        }
+        console.log(req.file);
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password
+
+        if(req.file){
+        
+            // delete previosly added img from code base if it exists
+            console.log('path --->',user.avatar)
+            if(user.avatar){
+                if(fs.existsSync(path.join(__dirname,'..',user.avatar))){
+                    fs.unlinkSync(path.join(__dirname,'..',user.avatar))
+                }
+            }
+        }
+        
+
+        if(req.body.password == req.body.confirm_password){
+            
+            // this is saving path of the file in database
+            user.avatar = User.avatarPath+'/'+req.file.filename
+
+            user.save();
+            console.log("User details updated successfully ...");
+            return res.redirect('/');
+        }
+        else{
+            console.log("Both passwords are not matching, please enter same password ...")
+            return res.redirect('back');
+            }
+        });
+    });
+}
+
 

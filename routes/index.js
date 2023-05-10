@@ -7,6 +7,8 @@ const homeController = require('../controllers/home_controller')
 
 router.get('/',homeController.home)
 router.use('/users',require('./users.js'))
+router.use('/post',require('./posts.js'))
+
 
 
 module.exports = router;
