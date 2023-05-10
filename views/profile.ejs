@@ -1,22 +1,24 @@
+<body>
 
-<div id="profile">
-    <h1>Profile Page</h1>
-
-<form action="/users/upload" method="post">
-    <br><input type="image" id="image" alt="Login" height="20%" width="30%" src="https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?cs=srgb&dl=pexels-simona-kidri%C4%8D-2607544.jpg&fm=jpg"><br>  
-    <br><textarea name="text" id="" cols="30" rows="4" required placeholder="describe your post here ..."></textarea><br>
-    <br><input type="submit" value="Upload"><br>
-</form>
-
-<hr>
-
-<h1>Update Profile</h1>
-<form action="/users/profile/update/<%= locals.user.id %>" method="post">
-    <br><input type="name" name="name" value="<%= locals.user.name %>" placeholder="enter your name"><br>
-    <br><input type="email" name="email" value="<%= locals.user.email %>" placeholder="enter your email/username"><br>
-    <br><input type="password" name="password" value="<%= locals.user.password %>" placeholder="new password"><br>
-   <br> <input type="password" name="confirm_password" value="<%= locals.user.password %>" placeholder="confirm your new password" required><br>
-    <br><input type="submit" value="Update"><br>
-</form>
-
-</div>
+    <div id="profile">
+        <h1>Profile Page</h1>
+    
+    <form action="/post/upload/<%= locals.user.id %>" method="post">
+        <br><input type="image" id="image" alt="Login" height="20%" width="30%" src="https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?cs=srgb&dl=pexels-simona-kidri%C4%8D-2607544.jpg&fm=jpg"><br>  
+        <br><textarea id="post_content" name="text" id="" cols="30" rows="4" required placeholder="describe your post here ..."></textarea><br>
+        <br><input id="upload_post" type="submit" value="Upload"><br>
+    </form>
+    <hr>
+    
+    <h1>Update Profile</h1>
+    <form action="/users/profile/update/<%= locals.user.id %>" method="post" enctype="multipart/form-data">
+        <br><input type="name" name="name" value="<%= locals.user.name %>" placeholder="enter your name"><br>
+        <br><input type="email" name="email" value="<%= locals.user.email %>" placeholder="enter your email/username"><br>
+        <br><input type="password" name="password" value="<%= locals.user.password %>" placeholder="new password"><br>
+        <br> <input type="password" name="confirm_password" value="<%= locals.user.password %>" placeholder="confirm your new password" required><br>
+        <br><input type="file" name="avatar" placeholder="Profile Picture" required><br>
+        <br><input type="submit" value="Update"><br>
+    </form>
+    </div>
+</body>
+<script src="/js/post_handler.js"></script>
